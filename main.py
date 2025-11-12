@@ -31,7 +31,7 @@ class Record:
         return next((p for p in self.phones if p.value == phone_str), None)
 
     def remove_phone(self, phone_str):
-        phone = self.find_phone(p)
+        phone = self.find_phone(phone_str)
         # phone = next((p for p in self.phones if p.value == phone_str), None)
         if phone:
             self.phones.remove(phone)
