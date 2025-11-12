@@ -27,22 +27,24 @@ class Record:
     def add_phone(self, phone_str):
         self.phones.append(Phone(phone_str))
 
+    def find_phone(self, phone_str):
+        return next((p for p in self.phones if p.value == phone_str), None)
+
     def remove_phone(self, phone_str):
-        phone = next((p for p in self.phones if p.value == phone_str), None)
+        phone = self.find_phone(p)
+        # phone = next((p for p in self.phones if p.value == phone_str), None)
         if phone:
             self.phones.remove(phone)
         else:
             raise ValueError(f"Phone {phone_str} not found")
 
     def edit_phone(self, old_phone_str, new_phone_str):
-        for i, phone in enumerate(self.phones):
-            if phone.value == old_phone_str:
-                self.phones[i] = Phone(new_phone_str)
+            phone = self.find_phone(old_phone_str)
+            if phone:
+                self.phones[self.phones.index(phone)] = Phone(new_phone_str)
                 return
-        raise ValueError(f"Phone {old_phone_str} not found")
+            raise ValueError(f"Phone {old_phone_str} not found")
 
-    def find_phone(self, phone_str):
-        return next((p for p in self.phones if p.value == phone_str), None)
 
     def __str__(self):
         phones_str = '; '.join(p.value for p in self.phones)
